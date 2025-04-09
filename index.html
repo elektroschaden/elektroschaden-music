@@ -1,1 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>elektroschaden</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Helvetica Neue', sans-serif;
+      color: white;
+      background: black;
+      overflow: hidden;
+      font-size: 20px;
+    }
+
+    .menu {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 36px;
+      color: white;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .menu-links {
+      display: none;
+      position: absolute;
+      top: 70px;
+      right: 30px;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 12px 16px;
+      border-radius: 8px;
+      z-index: 999;
+    }
+
+    .menu-links a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin: 10px 0;
+      font-size: 20px;
+      padding-left: 2px;
+    }
+
+    #menu-toggle:checked + label + .menu-links {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <input type="checkbox" id="menu-toggle" hidden>
+  <label for="menu-toggle" class="menu">⋮</label>
+
+  <nav class="menu-links">
+    <a href="https://music.elektroschaden.art" target="_blank">music</a>
+    <a href="https://visuals.elektroschaden.art" target="_blank">visuals</a>
+    <a href="https://instagram.com/elektroschaden" target="_blank">📷 instagram</a>
+    <a href="https://elektroschaden.bandcamp.com" target="_blank">♫ bandcamp</a>
+  </nav>
+
+  <!-- Dein bisheriger Inhalt kommt hier -->
+
+</body>
+</html>
 
