@@ -52,11 +52,16 @@
       position: absolute;
       top: 20px;
       right: 30px;
-      font-size: 36px;
-      color: white;
       cursor: pointer;
       z-index: 1000;
       line-height: 1;
+    }
+
+    .menu::after {
+      content: "⋮";
+      display: block;
+      font-size: 36px;
+      color: white;
     }
 
     .menu-links {
@@ -81,7 +86,7 @@
     }
 
     @media (max-width: 600px) {
-      .menu {
+      .menu::after {
         font-size: 56px;
       }
 
@@ -98,13 +103,13 @@
 <body>
 
   <input type="checkbox" id="menu-toggle" hidden>
-  <label for="menu-toggle" class="menu">⋮</label>
+  <label for="menu-toggle" class="menu"></label>
 
   <nav class="menu-links">
     <a href="https://music.elektroschaden.art" target="_blank">music</a>
     <a href="https://visuals.elektroschaden.art" target="_blank">visuals</a>
-    <a href="https://instagram.com/elektroschaden" target="_blank">Instagram</a>
-    <a href="https://elektroschaden.bandcamp.com" target="_blank">bandcamp</a>
+    <a href="https://instagram.com/elektroschaden" target="_blank">INSTAGRAM</a>
+    <a href="https://elektroschaden.bandcamp.com" target="_blank">BANDCAMP</a>
   </nav>
 
   <div class="centered">
@@ -118,4 +123,3 @@
 
 </body>
 </html>
-
