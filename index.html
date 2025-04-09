@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>elektroschaden</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     html, body {
       margin: 0;
@@ -14,6 +14,40 @@
       background: black;
       overflow: hidden;
       font-size: 20px;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('hintergrund.png'); /* hier ggf. dein Bildpfad */
+      background-size: cover;
+      background-position: center;
+      z-index: -1;
+      filter: brightness(0.4);
+    }
+
+    .centered {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      padding: 0 2rem;
+    }
+
+    .centered h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.1em;
+    }
+
+    .centered p {
+      font-size: 1.2rem;
+      opacity: 0.7;
     }
 
     .menu {
@@ -63,8 +97,10 @@
     <a href="https://elektroschaden.bandcamp.com" target="_blank">♫ bandcamp</a>
   </nav>
 
-  <!-- Dein bisheriger Inhalt kommt hier -->
+  <div class="centered">
+    <h1>elektroschaden</h1>
+    <p>interpolations – coming soon</p>
+  </div>
 
 </body>
 </html>
-
