@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>elektroschaden</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Helvetica Neue', sans-serif;
+      color: white;
+      overflow: hidden;
+    }
+    body {
+      background: url('hintergrund.png') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+    }
+    .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+    }
+    .content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      width: 90%;
+    }
+    h1 {
+      font-size: 8vw;
+      margin: 0;
+    }
+    p {
+      font-size: 5vw;
+      margin-top: 1em;
+      line-height: 1.6;
+      word-break: break-word;
+    }
+    .menu {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      width: 30px;
+      height: 25px;
+      cursor: pointer;
+    }
+    .menu span {
+      display: block;
+      height: 4px;
+      margin-bottom: 5px;
+      background: white;
+      border-radius: 2px;
+    }
+    @media (min-width: 768px) {
+      h1 {
+        font-size: 3em;
+      }
+      p {
+        font-size: 1.2em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <div class="content">
+    <h1>elektroschaden</h1>
+    <p>
+      fragments of noise<br>
+      order and collapse<br>
+      spectral tension<br>
+      structure and impulse<br>
+      music | visual | experiment
+    </p>
+  </div>
+</body>
+</html>
