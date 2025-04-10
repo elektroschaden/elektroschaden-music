@@ -23,8 +23,9 @@
             background: rgba(0, 0, 0, 0.6);
             padding: 20px;
             border-radius: 10px;
-            width: 90%; /* Flexible Breite */
+            width: 80%; /* Flexible Breite */
             max-width: 800px; /* Maximale Breite */
+            text-align: center;
         }
         h1 {
             font-size: 3em;
@@ -45,7 +46,7 @@
             padding: 10px 20px;
             border-radius: 5px;
             transition: background-color 0.3s ease;
-            background-color: transparent; /* Hintergrundfarbe entfernt */
+            background-color: transparent;
             border: none;
         }
         .links a:hover {
@@ -55,11 +56,15 @@
         /* Responsives Design für kleinere Bildschirme */
         @media screen and (max-width: 600px) {
             h1 {
-                font-size: 2em; /* Kleinere Schrift für mobile Geräte */
+                font-size: 2.5em; /* Kleinere Schrift für mobile Geräte */
             }
             .links a {
-                font-size: 1em; /* Kleinere Schrift für Links */
+                font-size: 1.1em; /* Kleinere Schrift für Links */
                 padding: 8px 15px; /* Kleinere Buttons */
+            }
+            iframe {
+                width: 100%;
+                height: 120px; /* Bandcamp Player skaliert auf 100% */
             }
         }
     </style>
@@ -73,7 +78,7 @@
         </ul>
 
         <!-- Bandcamp Embed -->
-        <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=235664288/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless>
+        <iframe style="border: 0; width: 100%; height: 442px;" src="https://bandcamp.com/EmbeddedPlayer/track=235664288/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless>
             <a href="https://elektroschaden.bandcamp.com/track/opsix">Opsix by elektroschaden</a>
         </iframe>
     </div>
