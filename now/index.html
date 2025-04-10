@@ -1,94 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>elektroschaden now</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            background-image: url('hintergrund.png');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        .content {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 20px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 800px;  /* Maximale Breite für Desktop */
-        }
-        h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-        .links {
-            list-style-type: none;
-            padding: 0;
-        }
-        .links li {
-            margin: 10px 0;
-        }
-        .links a {
-            text-decoration: none;
-            color: #fff;
-            font-size: 1.2em;
-            padding: 10px 20px;
-            border-radius: 5px;
-            background-color: transparent; /* Hintergrundfarbe entfernt */
-            border: none;
-            transition: background-color 0.3s ease;
-        }
-        .links a:hover {
-            background-color: transparent;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>elektroschaden</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      color: white;
+      font-size: 20px;
+      background: black;
+      background-image: url('hintergrund.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-        iframe {
-            width: 100%;
-            height: 100px;
-            border: none;
-        }
+    .centered {
+      text-align: center;
+      padding: 0 2rem;
+      line-height: 1.8;
+    }
 
-        /* Responsive Design */
-       @media (max-width: 900px) {
-  .centered h1 {
-    font-size: 1.7rem;    /* Kleinere Schriftgröße */
-    margin-bottom: 1rem;  /* Kleinerer Abstand nach unten */
-  }
+    .centered h1 {
+      font-size: 4rem;
+      margin-bottom: 1.8rem;
+      letter-spacing: 0.12em;
+      text-transform: lowercase;
+      font-weight: 200;
+      opacity: 0.95;
+    }
 
-  .links a {
-    font-size: 1rem;      /* Kleinere Schrift für Links */
-    padding: 8px 15px;    /* Etwas weniger Abstand für die Buttons */
-  }
+    .centered p {
+      margin: 0.4em 0;
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+      font-weight: 300;
+      opacity: 0.85;
+    }
 
-  iframe {
-    height: 120px;        /* Verkleinerter Bandcamp-Player */
-  }
-}
+    .menu {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      z-index: 1000;
+    }
 
-    </style>
+    .menu span {
+      width: 6px;
+      height: 6px;
+      background-color: white;
+      border-radius: 50%;
+    }
+
+    .menu-links {
+      display: none;
+      position: absolute;
+      top: 70px;
+      right: 30px;
+      z-index: 999;
+    }
+
+    .menu-links a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin: 10px 0;
+      font-size: 20px;
+      padding-left: 2px;
+    }
+
+    #menu-toggle:checked + label + .menu-links {
+      display: block;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 900px) {
+      .centered h1 {
+        font-size: 1.7rem;
+        margin-bottom: 1rem;
+      }
+
+      .centered p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+
+      .menu {
+        top: 16px;
+        right: 18px;
+        gap: 4px;
+      }
+
+      .menu span {
+        width: 5px;
+        height: 5px;
+      }
+
+      .menu-links {
+        top: 56px;
+        right: 18px;
+      }
+
+      .menu-links a {
+        font-size: 18px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="content">
-        <h1>now</h1>
-        <ul class="links">
-            <li><a href="https://elektroschaden.bandcamp.com" target="_blank">Bandcamp</a></li>
-            <li><a href="https://www.instagram.com/elektroschaden" target="_blank">Instagram</a></li>
-        </ul>
 
-        <!-- Bandcamp Embed -->
-        <iframe src="https://bandcamp.com/EmbeddedPlayer/track=235664288/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless>
-            <a href="https://elektroschaden.bandcamp.com/track/opsix">Opsix by elektroschaden</a>
-        </iframe>
-    </div>
+  <input type="checkbox" id="menu-toggle" hidden>
+  <label for="menu-toggle" class="menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+
+  <nav class="menu-links">
+    <a href="https://music.elektroschaden.art" target="_blank">music</a>
+    <a href="https://visuals.elektroschaden.art" target="_blank">visuals</a>
+    <a href="https://instagram.com/elektroschaden" target="_blank">Instagram</a>
+    <a href="https://elektroschaden.bandcamp.com" target="_blank">bandcamp</a>
+  </nav>
+
+  <div class="centered">
+    <h1>elektroschaden</h1>
+    <p>fragments of noise</p>
+    <p>order and collapse</p>
+    <p>spectral tension</p>
+    <p>structure and impulse</p>
+    <p>music | visual | experiment</p>
+  </div>
+
 </body>
 </html>
