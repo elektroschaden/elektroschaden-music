@@ -59,18 +59,22 @@
         }
 
         /* Responsive Design */
-        @media screen and (max-width: 600px) {
-            h1 {
-                font-size: 2.5em;
-            }
-            .links a {
-                font-size: 1.1em;
-                padding: 8px 15px;
-            }
-            iframe {
-                height: 120px; /* Höhere Höhe für den Player auf Mobilgeräten */
-            }
-        }
+       @media (max-width: 900px) {
+  .centered h1 {
+    font-size: 1.7rem;    /* Kleinere Schriftgröße */
+    margin-bottom: 1rem;  /* Kleinerer Abstand nach unten */
+  }
+
+  .links a {
+    font-size: 1rem;      /* Kleinere Schrift für Links */
+    padding: 8px 15px;    /* Etwas weniger Abstand für die Buttons */
+  }
+
+  iframe {
+    height: 120px;        /* Verkleinerter Bandcamp-Player */
+  }
+}
+
     </style>
 </head>
 <body>
