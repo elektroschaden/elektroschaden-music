@@ -1,1 +1,44 @@
+<!DOCTYPE html><html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>elektroschaden – logo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #fdf7e2;
+      cursor: none;
+    }#logo-follow {
+  position: absolute;
+  pointer-events: none;
+  display: none;
+  z-index: 100;
+}
 
+.logo-img {
+  width: 120px;
+  opacity: 0.9;
+  mix-blend-mode: multiply;
+}
+
+  </style>
+</head>
+<body>
+  <div id="logo-follow">
+    <img src="elektroschaden-logo.png" alt="elektroschaden" class="logo-img">
+  </div>  <script>
+    const logo = document.getElementById('logo-follow');
+
+    document.addEventListener('mousemove', (e) => {
+      logo.style.left = `${e.pageX}px`;
+      logo.style.top = `${e.pageY}px`;
+      logo.style.display = 'block';
+    });
+
+    document.addEventListener('mouseleave', () => {
+      logo.style.display = 'none';
+    });
+  </script></body>
+</html>
