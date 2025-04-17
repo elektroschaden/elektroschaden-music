@@ -31,8 +31,10 @@
 
     function startDrag(x, y) {
       if (logo.style.display !== 'block') {
-        logo.style.left = `${x}px`;
-        logo.style.top = `${y}px`;
+        const offsetLeft = x - window.innerWidth * 0.2;
+        const offsetTop = y - window.innerHeight * 0.1;
+        logo.style.left = `${offsetLeft}px`;
+        logo.style.top = `${offsetTop}px`;
         logo.style.display = 'block';
       }
 
