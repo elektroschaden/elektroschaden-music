@@ -1,100 +1,85 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>sacrefract</title>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #d4d4d4;
+      --bg: #e5e5e5;
       --text: #111;
-      --glitch: #333;
-      --accent: #cc3333;
+      --glitch: #666;
       --font-main: 'IBM Plex Mono', monospace;
     }
 
     html, body {
       margin: 0;
-      padding: clamp(1rem, 5vh, 3rem);
-      background-color: var(--bg);
-      color: var(--text);
+      padding: 0;
+      height: 100%;
+      background: var(--bg);
       font-family: var(--font-main);
+      color: var(--text);
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      height: 100%;
-      gap: clamp(1rem, 5vh, 3rem);
+      align-items: center;
       text-align: center;
       overflow: hidden;
-      transform: translateY(-5vh);
+      position: relative;
     }
 
-    .line {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.2em;
-      max-width: 75ch;
-      line-height: 1.2;
+    h1 {
+      font-size: 3rem;
+      letter-spacing: 0.1em;
+      font-weight: 400;
+      text-transform: lowercase;
     }
 
-    .line.large {
-      font-size: clamp(2rem, 6vw, 4rem);
-      font-weight: bold;
+    p {
+      font-size: 1.2rem;
+      margin-top: 1rem;
     }
 
-    .glitch {
-      color: var(--glitch);
+    .cover-fragment {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 50vh;
+      background: url('sacrefract.png') no-repeat center top;
+      background-size: cover;
+      opacity: 0.9;
+      z-index: -1;
     }
 
-    .secret-link {
-      width: 2vw;
-      height: 2vw;
-      min-width: 14px;
-      min-height: 14px;
-      background-color: var(--accent);
-      border-radius: 2px;
-      display: inline-block;
-      transition: transform 0.2s ease-in-out;
-      position: absolute;
-      bottom: clamp(1rem, 3vh, 2rem);
-      right: clamp(1rem, 3vh, 2rem);
+    .dot {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 10px;
+      height: 10px;
+      background-color: red;
+      border-radius: 50%;
+      z-index: 10;
     }
 
-    .secret-link:hover {
-      transform: scale(1.5);
-      cursor: pointer;
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="line large" id="headline"></div>
-  <a href="/sacrefract/werkstatt/" class="secret-link" title="Werkstatt"></a>
-
-  <script>
-    function glitchTextByWord(text, containerId) {
-      const container = document.getElementById(containerId);
-      let count = 0;
-      const words = "fragmente zerfallen zu strukturen die sich entziehen".split(' ');
-      words.forEach(word => {
-        const wordSpan = document.createElement("span");
-        wordSpan.style.whiteSpace = "nowrap";
-        for (let char of word) {
-          const span = document.createElement("span");
-          span.textContent = char;
-          if (count % 5 === 0) {
-            span.classList.add("glitch");
-          }
-          count++;
-          wordSpan.appendChild(span);
-        }
-        container.appendChild(wordSpan);
-        container.appendChild(document.createTextNode(" "));
-      });
-    }
-
-    glitchTextByWord("Fragmente zerfallen zu Strukturen", "headline");
-  </script>
+  <h1>Dies ist<br><strong>kein Track</strong></h1>
+  <p>Fragmente emulgieren hier:</p>
+  <a href="/sacrefract/werkstatt" class="dot" title="zur Werkstatt"></a>
+  <div class="cover-fragment"></div>
 </body>
 </html>
