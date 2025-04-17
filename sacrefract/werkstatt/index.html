@@ -104,29 +104,31 @@
     const players = [new Audio(), new Audio(), new Audio()];
     const activeCells = [null, null, null];
 
+    function handleClick(event) {
+      const cell = event.currentTarget;
+      const row = parseInt(cell.dataset.row);
+      const audioFile = cell.dataset.audio;
+
+      if (activeCells[row]) {
+        activeCells[row].classList.remove('active');
+        players[row].pause();
+        players[row].currentTime = 0;
+      }
+
+      if (activeCells[row] === cell) {
+        activeCells[row] = null;
+      } else {
+        cell.classList.add('active');
+        players[row].src = "audio/" + audioFile;
+        players[row].loop = true;
+        players[row].play();
+        activeCells[row] = cell;
+      }
+    }
+
     document.querySelectorAll('.cell').forEach(cell => {
-      cell.addEventListener('click', () => {
-        const row = parseInt(cell.dataset.row);
-        const audioFile = cell.dataset.audio;
-
-        // Stop current audio on this row
-        if (activeCells[row]) {
-          activeCells[row].classList.remove('active');
-          players[row].pause();
-          players[row].currentTime = 0;
-        }
-
-        // Toggle if clicked cell was already active
-        if (activeCells[row] === cell) {
-          activeCells[row] = null;
-        } else {
-          cell.classList.add('active');
-          players[row].src = "audio/" + audioFile;
-          players[row].loop = true;
-          players[row].play();
-          activeCells[row] = cell;
-        }
-      });
+      cell.addEventListener('click', handleClick);
+      cell.addEventListener('touchstart', handleClick);
     });
   </script>
 </body>
