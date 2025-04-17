@@ -9,36 +9,40 @@
       padding: 0;
       height: 100%;
       background-color: #fdf7e2;
-      cursor: none;
-    }#logo-follow {
-  position: absolute;
-  pointer-events: none;
-  display: none;
-  z-index: 100;
-}
-
-.logo-img {
-  width: 49vw;
-  opacity: 0.9;
-  mix-blend-mode: multiply;
-}
-
+      overflow: hidden;
+    }
+    #logo {
+      width: 40vw;
+      position: absolute;
+      top: 20vh;
+      left: 30vw;
+      cursor: grab;
+    }
   </style>
 </head>
 <body>
-  <div id="logo-follow">
-    <img src="elektroschaden-logo.png" alt="elektroschaden" class="logo-img">
-  </div>  <script>
-    const logo = document.getElementById('logo-follow');
+  <img id="logo" src="elektroschaden-logo.png" alt="elektroschaden">  <script>
+    const logo = document.getElementById('logo');
+    let isDragging = false;
+    let offsetX, offsetY;
 
-    document.addEventListener('mousemove', (e) => {
-      logo.style.left = `${e.pageX}px`;
-      logo.style.top = `${e.pageY}px`;
-      logo.style.display = 'block';
+    logo.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      offsetX = e.clientX - logo.offsetLeft;
+      offsetY = e.clientY - logo.offsetTop;
+      logo.style.cursor = 'grabbing';
     });
 
-    document.addEventListener('mouseleave', () => {
-      logo.style.display = 'none';
+    document.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+        logo.style.left = `${e.clientX - offsetX}px`;
+        logo.style.top = `${e.clientY - offsetY}px`;
+      }
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+      logo.style.cursor = 'grab';
     });
   </script></body>
 </html>
