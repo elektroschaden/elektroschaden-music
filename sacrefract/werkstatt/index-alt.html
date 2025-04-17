@@ -1,13 +1,12 @@
 
 <!DOCTYPE html>
-
 <html lang="de">
 <head>
-<meta charset="utf-8"/>
-<title>sacrefract / Werkstatt</title>
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&amp;display=swap" rel="stylesheet"/>
-<style>
+  <meta charset="UTF-8">
+  <title>sacrefract / Werkstatt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+  <style>
     :root {
       --bg: #d4d4d4;
       --text: #111;
@@ -89,44 +88,34 @@
         height: 20vw;
       }
     }
-  
-    .dot {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 10px;
-      height: 10px;
-      background-color: var(--accent);
-      border-radius: 50%;
-      z-index: 999;
-    }
-    .dot:hover {
-      transform: scale(1.4);
-    }
-</style>
+  </style>
 </head>
 <body>
-<h1>sacrefract / Werkstatt</h1>
-<div class="label-top">fragmente</div>
-<div class="grid-container" id="grid">
-<div class="label-left">Grain</div>
-<div class="cell" data-audio="grain1.mp3" data-col="0" data-row="0"></div>
-<div class="cell" data-audio="grain2.mp3" data-col="1" data-row="0"></div>
-<div class="cell" data-audio="grain3.mp3" data-col="2" data-row="0"></div>
-<div class="label-left">Sinus</div>
-<div class="cell" data-audio="sinus1.mp3" data-col="0" data-row="1"></div>
-<div class="cell" data-audio="sinus2.mp3" data-col="1" data-row="1"></div>
-<div class="cell" data-audio="sinus3.mp3" data-col="2" data-row="1"></div>
-<div class="label-left">Spektral</div>
-<div class="cell" data-audio="spektral1.mp3" data-col="0" data-row="2"></div>
-<div class="cell" data-audio="spektral2.mp3" data-col="1" data-row="2"></div>
-<div class="cell" data-audio="spektral3.mp3" data-col="2" data-row="2"></div>
-</div>
-<p class="rights">
-<strong>CC0.</strong> <em>Misch es. mix it.</em><br/>
+  <h1>sacrefract / Werkstatt</h1>
+  <div class="label-top">fragmente</div>
+  <div class="grid-container" id="grid">
+    <div class="label-left">Grain</div>
+    <div class="cell" data-row="0" data-col="0" data-audio="grain1.mp3"></div>
+    <div class="cell" data-row="0" data-col="1" data-audio="grain2.mp3"></div>
+    <div class="cell" data-row="0" data-col="2" data-audio="grain3.mp3"></div>
+
+    <div class="label-left">Sinus</div>
+    <div class="cell" data-row="1" data-col="0" data-audio="sinus1.mp3"></div>
+    <div class="cell" data-row="1" data-col="1" data-audio="sinus2.mp3"></div>
+    <div class="cell" data-row="1" data-col="2" data-audio="sinus3.mp3"></div>
+
+    <div class="label-left">Spektral</div>
+    <div class="cell" data-row="2" data-col="0" data-audio="spektral1.mp3"></div>
+    <div class="cell" data-row="2" data-col="1" data-audio="spektral2.mp3"></div>
+    <div class="cell" data-row="2" data-col="2" data-audio="spektral3.mp3"></div>
+  </div>
+
+  <p class="rights">
+    <strong>CC0.</strong> <em>Misch es. mix it.</em><br>
     Wenn etwas entsteht: <a href="mailto:sound@elektroschaden.art">sound@elektroschaden.art</a>
-</p>
-<script>
+  </p>
+
+  <script>
     const players = [new Audio(), new Audio(), new Audio()];
     const activeCells = [null, null, null];
 
@@ -156,5 +145,5 @@
       cell.addEventListener('click', handleClick);
     });
   </script>
-<a class="dot" href="https://visuals.elektroschaden.art" title="visuals"></a></body>
+</body>
 </html>
