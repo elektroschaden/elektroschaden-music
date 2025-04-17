@@ -17,6 +17,7 @@
       top: 20vh;
       left: 30vw;
       cursor: grab;
+      touch-action: none;
     }
   </style>
 </head>
@@ -24,25 +25,42 @@
   <img id="logo" src="elektroschaden-logo.png" alt="elektroschaden">  <script>
     const logo = document.getElementById('logo');
     let isDragging = false;
-    let offsetX, offsetY;
+    let offsetX = 0;
+    let offsetY = 0;
 
-    logo.addEventListener('mousedown', (e) => {
+    function startDrag(x, y) {
       isDragging = true;
-      offsetX = e.clientX - logo.offsetLeft;
-      offsetY = e.clientY - logo.offsetTop;
+      const rect = logo.getBoundingClientRect();
+      offsetX = x - rect.left;
+      offsetY = y - rect.top;
       logo.style.cursor = 'grabbing';
-    });
+    }
 
-    document.addEventListener('mousemove', (e) => {
-      if (isDragging) {
-        logo.style.left = `${e.clientX - offsetX}px`;
-        logo.style.top = `${e.clientY - offsetY}px`;
-      }
-    });
+    function doDrag(x, y) {
+      if (!isDragging) return;
+      logo.style.left = `${x - offsetX}px`;
+      logo.style.top = `${y - offsetY}px`;
+    }
 
-    document.addEventListener('mouseup', () => {
+    function endDrag() {
       isDragging = false;
       logo.style.cursor = 'grab';
+    }
+
+    // Maussteuerung
+    logo.addEventListener('mousedown', e => startDrag(e.clientX, e.clientY));
+    window.addEventListener('mousemove', e => doDrag(e.clientX, e.clientY));
+    window.addEventListener('mouseup', endDrag);
+
+    // Touchsteuerung
+    logo.addEventListener('touchstart', e => {
+      const touch = e.touches[0];
+      startDrag(touch.clientX, touch.clientY);
     });
+    window.addEventListener('touchmove', e => {
+      const touch = e.touches[0];
+      doDrag(touch.clientX, touch.clientY);
+    }, { passive: false });
+    window.addEventListener('touchend', endDrag);
   </script></body>
 </html>
