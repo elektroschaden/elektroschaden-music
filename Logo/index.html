@@ -56,20 +56,24 @@
       logo.style.display = 'none';
     }
 
-    // Maussteuerung
-    logo.addEventListener('mousedown', e => startDrag(e.clientX, e.clientY));
-    window.addEventListener('mousemove', e => doDrag(e.clientX, e.clientY));
-    window.addEventListener('mouseup', endDrag);
-
-    // Touchsteuerung
-    logo.addEventListener('touchstart', e => {
-      const touch = e.touches[0];
-      startDrag(touch.clientX, touch.clientY);
+    // Globales Start-Handling für leere Seite
+    window.addEventListener('mousedown', (e) => {
+      if (!isDragging) startDrag(e.clientX, e.clientY);
     });
-    window.addEventListener('touchmove', e => {
+    window.addEventListener('touchstart', (e) => {
+      const touch = e.touches[0];
+      if (!isDragging) startDrag(touch.clientX, touch.clientY);
+    });
+
+    // Bewegung
+    window.addEventListener('mousemove', (e) => doDrag(e.clientX, e.clientY));
+    window.addEventListener('touchmove', (e) => {
       const touch = e.touches[0];
       doDrag(touch.clientX, touch.clientY);
     }, { passive: false });
+
+    // Ende
+    window.addEventListener('mouseup', endDrag);
     window.addEventListener('touchend', endDrag);
   </script></body>
 </html>
