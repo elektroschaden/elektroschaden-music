@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>sacrefract</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #d4d4d4;
+      --text: #111;
+      --glitch: #333;
+      --accent: #cc3333;
+      --font-main: 'IBM Plex Mono', monospace;
+    }
+
+    html, body {
+      margin: 0;
+      padding: clamp(1rem, 5vh, 3rem);
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      gap: clamp(1rem, 5vh, 3rem);
+      text-align: center;
+      overflow: hidden;
+      transform: translateY(-5vh);
+    }
+
+    .line {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.2em;
+      max-width: 75ch;
+      line-height: 1.2;
+    }
+
+    .line.large {
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-weight: bold;
+    }
+
+    .glitch {
+      color: var(--glitch);
+    }
+
+    .secret-link {
+      width: 2vw;
+      height: 2vw;
+      min-width: 14px;
+      min-height: 14px;
+      background-color: var(--accent);
+      border-radius: 2px;
+      display: inline-block;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .secret-link:hover {
+      transform: scale(1.5);
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="line large" id="headline"></div>
+  <a href="/sacrefract/werkstatt" class="secret-link" title=" "></a>
+
+  <script>
+    function glitchTextByWord(text, containerId) {
+      const container = document.getElementById(containerId);
+      let count = 0;
+      const words = text.split(' ');
+      words.forEach(word => {
+        const wordSpan = document.createElement("span");
+        wordSpan.style.whiteSpace = "nowrap";
+        for (let char of word) {
+          const span = document.createElement("span");
+          span.textContent = char;
+          if (count % 5 === 0) {
+            span.classList.add("glitch");
+          }
+          count++;
+          wordSpan.appendChild(span);
+        }
+        container.appendChild(wordSpan);
+        container.appendChild(document.createTextNode(" "));
+      });
+    }
+
+    glitchTextByWord("fragmente zerfallen zu strukturen die sich entziehen", "headline");
+  </script>
+</body>
+</html>
