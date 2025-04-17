@@ -71,7 +71,6 @@
 
     .cover-split {
       display: flex;
-      justify-content: center;
       position: absolute;
       bottom: 0;
       width: 100%;
@@ -80,8 +79,7 @@
     }
 
     .cover {
-      width: 48vw;
-      height: 100%;
+      flex: 1;
       background-image: url('sacrefract.png');
       background-size: cover;
       background-repeat: no-repeat;
@@ -90,12 +88,10 @@
 
     .cover.left {
       background-position: left center;
-      margin-right: 2vw;
     }
 
     .cover.right {
       background-position: right center;
-      margin-left: 2vw;
     }
 
     @media (max-width: 600px) {
