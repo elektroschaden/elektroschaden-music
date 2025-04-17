@@ -57,6 +57,9 @@
       border-radius: 2px;
       display: inline-block;
       transition: transform 0.2s ease-in-out;
+      position: absolute;
+      bottom: clamp(1rem, 3vh, 2rem);
+      right: clamp(1rem, 3vh, 2rem);
     }
 
     .secret-link:hover {
@@ -67,13 +70,13 @@
 </head>
 <body>
   <div class="line large" id="headline"></div>
-  <a href="/sacrefract/werkstatt" class="secret-link" title=" "></a>
+  <a href="/sacrefract/werkstatt/" class="secret-link" title="Werkstatt"></a>
 
   <script>
     function glitchTextByWord(text, containerId) {
       const container = document.getElementById(containerId);
       let count = 0;
-      const words = text.split(' ');
+      const words = "fragmente zerfallen zu strukturen die sich entziehen".split(' ');
       words.forEach(word => {
         const wordSpan = document.createElement("span");
         wordSpan.style.whiteSpace = "nowrap";
