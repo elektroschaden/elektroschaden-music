@@ -29,14 +29,13 @@
     let offsetX = 0;
     let offsetY = 0;
 
-    function revealLogo() {
+    function startDrag(x, y) {
       if (logo.style.display !== 'block') {
+        logo.style.left = `${x}px`;
+        logo.style.top = `${y}px`;
         logo.style.display = 'block';
       }
-    }
 
-    function startDrag(x, y) {
-      revealLogo();
       isDragging = true;
       const rect = logo.getBoundingClientRect();
       offsetX = x - rect.left;
