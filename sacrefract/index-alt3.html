@@ -2,8 +2,9 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>sacrefract B</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sacrefract</title>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -20,18 +21,12 @@
       background: var(--bg);
       font-family: var(--font-main);
       color: var(--text);
-      text-align: center;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .content {
       display: flex;
       flex-direction: column;
+      justify-content: center;
       align-items: center;
-      justify-content: flex-start;
-      padding-top: 10vh;
-      z-index: 2;
+      text-align: center;
+      overflow: hidden;
       position: relative;
     }
 
@@ -39,32 +34,12 @@
       font-size: 3rem;
       letter-spacing: 0.1em;
       font-weight: 400;
-      text-transform: none;
+      text-transform: lowercase;
     }
 
     p {
       font-size: 1.2rem;
       margin-top: 1rem;
-    }
-
-    .dot {
-      position: fixed;
-      bottom: 25vh;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 16px;
-      height: 16px;
-      background-color: red;
-      border-radius: 50%;
-      border: 1px solid white;
-      box-shadow: 0 0 12px red;
-      animation: pulse 1.5s infinite;
-    }
-
-    @keyframes pulse {
-      0% { transform: translateX(-50%) scale(1); opacity: 1; }
-      50% { transform: translateX(-50%) scale(1.2); opacity: 0.6; }
-      100% { transform: translateX(-50%) scale(1); opacity: 1; }
     }
 
     .cover-fragment {
@@ -79,10 +54,22 @@
       z-index: -1;
     }
 
+    .dot {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 10px;
+      height: 10px;
+      background-color: red;
+      border-radius: 50%;
+      z-index: 10;
+    }
+
     @media (max-width: 600px) {
       h1 {
         font-size: 2rem;
       }
+
       p {
         font-size: 1rem;
       }
@@ -90,10 +77,8 @@
   </style>
 </head>
 <body>
-  <div class="content">
-    <h1>Dies ist<br><strong>kein Track</strong></h1>
-    <p>Fragmente emulgieren hier:</p>
-  </div>
+  <h1>Dies ist<br><strong>kein Track</strong></h1>
+  <p>Fragmente emulgieren hier:</p>
   <a href="/sacrefract/werkstatt" class="dot" title="zur Werkstatt"></a>
   <div class="cover-fragment"></div>
 </body>
