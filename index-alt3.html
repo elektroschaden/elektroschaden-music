@@ -27,6 +27,7 @@
       justify-content: center;
       align-items: center;
       text-align: center;
+      position: relative;
     }
 
     h1 {
@@ -63,18 +64,17 @@
     }
 
     .dot {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
+      position: absolute;
+      bottom: 40px;
+      right: 40px;
       width: 10px;
       height: 10px;
       background-color: var(--accent);
       border-radius: 50%;
-      z-index: 999;
     }
 
     .dot:hover {
-      transform: scale(1.4);
+      transform: scale(1.5);
     }
 
     @media (max-width: 600px) {
@@ -100,7 +100,7 @@
   <nav>
     <a href="/now">now</a>
     <a href="/sacrefract">sacrefract</a>
-    <a href="https://music.elektroschaden.art" target="_blank">music</a>
   </nav>
+  <a href="https://visuals.elektroschaden.art" class="dot" title="visuals"></a>
 </body>
 </html>
