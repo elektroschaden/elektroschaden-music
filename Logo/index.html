@@ -12,6 +12,7 @@
       overflow: hidden;
     }
     #logo {
+      display: none;
       width: 40vw;
       position: absolute;
       top: 20vh;
@@ -28,7 +29,14 @@
     let offsetX = 0;
     let offsetY = 0;
 
+    function revealLogo() {
+      if (logo.style.display !== 'block') {
+        logo.style.display = 'block';
+      }
+    }
+
     function startDrag(x, y) {
+      revealLogo();
       isDragging = true;
       const rect = logo.getBoundingClientRect();
       offsetX = x - rect.left;
@@ -45,6 +53,7 @@
     function endDrag() {
       isDragging = false;
       logo.style.cursor = 'grab';
+      logo.style.display = 'none';
     }
 
     // Maussteuerung
