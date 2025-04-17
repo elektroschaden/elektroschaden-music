@@ -12,24 +12,26 @@
       background-color: #fdf7e2;
     }
     #poster {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: auto;
-      max-height: 100vh;
-      object-fit: contain;
-    }
-    #qr {
-      position: fixed;
-      bottom: 2vh;
-      right: 2vw;
-      width: 70px;
-      height: 70px;
-      z-index: 10;
-      opacity: 1;
-      display: block;
-    }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: auto;
+  max-height: 100vh;
+  object-fit: contain;
+  z-index: 1; /* oder 0 */
+}
+
+#qr {
+  position: fixed;
+  bottom: 2vh;
+  right: 2vw;
+  width: 70px;
+  height: 70px;
+  z-index: 100; /* WICHTIG: höher als das Poster */
+  opacity: 1;
+  display: block;
+}
   </style>
 </head>
 <body>
