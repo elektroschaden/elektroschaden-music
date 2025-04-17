@@ -2,9 +2,8 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>sacrefract</title>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sacrefract B</title>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -22,7 +21,7 @@
       font-family: var(--font-main);
       color: var(--text);
       text-align: center;
-      overflow-x: hidden;
+      overflow: hidden;
       position: relative;
     }
 
@@ -60,7 +59,6 @@
       border: 1px solid white;
       box-shadow: 0 0 12px red;
       animation: pulse 1.5s infinite;
-      z-index: 5;
     }
 
     @keyframes pulse {
@@ -69,15 +67,16 @@
       100% { transform: translateX(-50%) scale(1); opacity: 1; }
     }
 
-    .cover-img {
-      position: absolute;
+    .cover-fragment {
+      position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
-      max-height: 50vh;
-      object-fit: cover;
-      z-index: 0;
+      height: 50vh;
+      background: url('sacrefract.png') no-repeat center top;
+      background-size: cover;
       opacity: 0.9;
+      z-index: -1;
     }
 
     @media (max-width: 600px) {
@@ -96,6 +95,6 @@
     <p>Fragmente emulgieren hier:</p>
   </div>
   <a href="/sacrefract/werkstatt" class="dot" title="zur Werkstatt"></a>
-  <img src="sacrefract.png" alt="sacrefract" class="cover-img" />
+  <div class="cover-fragment"></div>
 </body>
 </html>
