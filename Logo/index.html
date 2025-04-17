@@ -20,6 +20,13 @@
       cursor: grab;
       touch-action: none;
     }
+    .ghost {
+      position: absolute;
+      width: 40vw;
+      opacity: 0.2;
+      pointer-events: none;
+      filter: blur(1px);
+    }
   </style>
 </head>
 <body>
@@ -51,9 +58,19 @@
       logo.style.top = `${y - offsetY}px`;
     }
 
+    function leaveGhost() {
+      const ghost = document.createElement('img');
+      ghost.src = logo.src;
+      ghost.className = 'ghost';
+      ghost.style.left = logo.style.left;
+      ghost.style.top = logo.style.top;
+      document.body.appendChild(ghost);
+    }
+
     function endDrag() {
       isDragging = false;
       logo.style.cursor = 'grab';
+      leaveGhost();
       logo.style.display = 'none';
     }
 
