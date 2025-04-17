@@ -1,34 +1,39 @@
-<!DOCTYPE html>
-<html lang="de">
+<!DOCTYPE html><html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>sacrefract – elektroschaden</title>
+  <title>sacrefract – ein Ritus</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
+      height: 100%;
       overflow: hidden;
-      background: #fdf7e2;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      background-color: #fdf7e2;
     }
-    img {
-      max-width: 90vw;
-      max-height: 90vh;
+    #poster {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: auto;
+      max-height: 100vh;
       object-fit: contain;
+    }
+    #qr {
+      position: fixed;
+      bottom: 2vh;
+      right: 2vw;
+      width: 70px;
+      height: 70px;
+      z-index: 10;
+      opacity: 1;
+      display: block;
     }
   </style>
 </head>
 <body>
-  <img src="Ein Ritus zerfließt.png" alt="sacrefract Ritual Poster">
+  <img id="poster" src="sacrefract-poster.png" alt="sacrefract">
+  <img id="qr" src="qr-code.png" alt="QR-Code">
 </body>
-  <img src="qr_sacrefract_creme.png" alt="QR sacrefract" style="
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  width: 80px;
-  opacity: 0.9;
-">
 </html>
