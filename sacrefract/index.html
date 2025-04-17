@@ -1,132 +1,100 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>sacrefract / Werkstatt</title>
+  <title>sacrefract</title>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #d4d4d4;
       --text: #111;
+      --glitch: #333;
       --accent: #cc3333;
       --font-main: 'IBM Plex Mono', monospace;
     }
 
     html, body {
       margin: 0;
-      padding: 2rem;
+      padding: clamp(1rem, 5vh, 3rem);
       background-color: var(--bg);
       color: var(--text);
       font-family: var(--font-main);
       display: flex;
       flex-direction: column;
       align-items: center;
-    }
-
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    .label-top {
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .grid-container {
-      display: grid;
-      grid-template-columns: auto 1fr 1fr 1fr;
-      gap: 0.5rem;
-      align-items: center;
-    }
-
-    .label-left {
-      writing-mode: vertical-lr;
-      transform: rotate(180deg);
-      text-align: center;
-      font-size: 0.85rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    .cell {
-      width: 60px;
-      height: 60px;
-      background-color: #fff;
-      border: 1px solid #999;
-      transition: background-color 0.2s ease-in-out;
-      display: flex;
-      align-items: center;
       justify-content: center;
+      height: 100%;
+      gap: clamp(1rem, 5vh, 3rem);
+      text-align: center;
+      overflow: hidden;
+      transform: translateY(-5vh);
     }
 
-    .cell.active {
+    .line {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.2em;
+      max-width: 75ch;
+      line-height: 1.2;
+    }
+
+    .line.large {
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-weight: bold;
+    }
+
+    .glitch {
+      color: var(--glitch);
+    }
+
+    .secret-link {
+      width: 2vw;
+      height: 2vw;
+      min-width: 14px;
+      min-height: 14px;
       background-color: var(--accent);
+      border-radius: 2px;
+      display: inline-block;
+      transition: transform 0.2s ease-in-out;
+      position: absolute;
+      bottom: clamp(1rem, 3vh, 2rem);
+      right: clamp(1rem, 3vh, 2rem);
     }
 
-    @media (max-width: 600px) {
-      .cell {
-        width: 14vw;
-        height: 14vw;
-      }
+    .secret-link:hover {
+      transform: scale(1.5);
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <h1>sacrefract / Werkstatt</h1>
-  <div class="label-top">fragmente</div>
-  <div class="grid-container" id="grid">
-    <div></div>
-    <div class="label-top">1</div>
-    <div class="label-top">2</div>
-    <div class="label-top">3</div>
-
-    <div class="label-left">Grain</div>
-    <div class="cell" data-row="0" data-col="0" data-audio="grain1.mp3"></div>
-    <div class="cell" data-row="0" data-col="1" data-audio="grain2.mp3"></div>
-    <div class="cell" data-row="0" data-col="2" data-audio="grain3.mp3"></div>
-
-    <div class="label-left">Sinus</div>
-    <div class="cell" data-row="1" data-col="0" data-audio="sinus1.mp3"></div>
-    <div class="cell" data-row="1" data-col="1" data-audio="sinus2.mp3"></div>
-    <div class="cell" data-row="1" data-col="2" data-audio="sinus3.mp3"></div>
-
-    <div class="label-left">Spektral</div>
-    <div class="cell" data-row="2" data-col="0" data-audio="spektral1.mp3"></div>
-    <div class="cell" data-row="2" data-col="1" data-audio="spektral2.mp3"></div>
-    <div class="cell" data-row="2" data-col="2" data-audio="spektral3.mp3"></div>
-  </div>
+  <div class="line large" id="headline"></div>
+  <a href="/sacrefract/werkstatt/" class="secret-link" title="Werkstatt"></a>
 
   <script>
-    const players = [new Audio(), new Audio(), new Audio()];
-    const activeCells = [null, null, null];
-
-    document.querySelectorAll('.cell').forEach(cell => {
-      cell.addEventListener('click', () => {
-        const row = parseInt(cell.dataset.row);
-        const audioFile = cell.dataset.audio;
-
-        // Stop current audio on this row
-        if (activeCells[row]) {
-          activeCells[row].classList.remove('active');
-          players[row].pause();
-          players[row].currentTime = 0;
+    function glitchTextByWord(text, containerId) {
+      const container = document.getElementById(containerId);
+      let count = 0;
+      const words = "fragmente zerfallen zu strukturen die sich entziehen".split(' ');
+      words.forEach(word => {
+        const wordSpan = document.createElement("span");
+        wordSpan.style.whiteSpace = "nowrap";
+        for (let char of word) {
+          const span = document.createElement("span");
+          span.textContent = char;
+          if (count % 5 === 0) {
+            span.classList.add("glitch");
+          }
+          count++;
+          wordSpan.appendChild(span);
         }
-
-        // Toggle if clicked cell was already active
-        if (activeCells[row] === cell) {
-          activeCells[row] = null;
-        } else {
-          cell.classList.add('active');
-          players[row].src = "audio/" + audioFile;
-          players[row].play();
-          activeCells[row] = cell;
-        }
+        container.appendChild(wordSpan);
+        container.appendChild(document.createTextNode(" "));
       });
-    });
+    }
+
+    glitchTextByWord("fragmente zerfallen zu strukturen die sich entziehen", "headline");
   </script>
 </body>
 </html>

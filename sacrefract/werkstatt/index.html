@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -14,20 +15,18 @@
 
     html, body {
       margin: 0;
-      padding: clamp(1rem, 5vh, 3rem);
+      padding: 2rem;
       background-color: var(--bg);
       color: var(--text);
       font-family: var(--font-main);
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
     }
 
     h1 {
-      font-size: clamp(1.5rem, 4vw, 3rem);
-      margin-bottom: 2rem;
+      font-size: 2rem;
+      margin-bottom: 1rem;
     }
 
     .label-top {
@@ -59,11 +58,13 @@
       background-color: #fff;
       border: 1px solid #999;
       transition: background-color 0.2s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .cell:hover {
+    .cell.active {
       background-color: var(--accent);
-      cursor: pointer;
     }
 
     @media (max-width: 600px) {
@@ -77,26 +78,55 @@
 <body>
   <h1>sacrefract / Werkstatt</h1>
   <div class="label-top">fragmente</div>
-  <div class="grid-container">
+  <div class="grid-container" id="grid">
     <div></div>
     <div class="label-top">1</div>
     <div class="label-top">2</div>
     <div class="label-top">3</div>
 
     <div class="label-left">Grain</div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
+    <div class="cell" data-row="0" data-col="0" data-audio="grain1.mp3"></div>
+    <div class="cell" data-row="0" data-col="1" data-audio="grain2.mp3"></div>
+    <div class="cell" data-row="0" data-col="2" data-audio="grain3.mp3"></div>
 
     <div class="label-left">Sinus</div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
+    <div class="cell" data-row="1" data-col="0" data-audio="sinus1.mp3"></div>
+    <div class="cell" data-row="1" data-col="1" data-audio="sinus2.mp3"></div>
+    <div class="cell" data-row="1" data-col="2" data-audio="sinus3.mp3"></div>
 
     <div class="label-left">Spektral</div>
-    <div class="cell"></div>
-    <div class="cell"></div>
-    <div class="cell"></div>
+    <div class="cell" data-row="2" data-col="0" data-audio="spektral1.mp3"></div>
+    <div class="cell" data-row="2" data-col="1" data-audio="spektral2.mp3"></div>
+    <div class="cell" data-row="2" data-col="2" data-audio="spektral3.mp3"></div>
   </div>
+
+  <script>
+    const players = [new Audio(), new Audio(), new Audio()];
+    const activeCells = [null, null, null];
+
+    document.querySelectorAll('.cell').forEach(cell => {
+      cell.addEventListener('click', () => {
+        const row = parseInt(cell.dataset.row);
+        const audioFile = cell.dataset.audio;
+
+        // Stop current audio on this row
+        if (activeCells[row]) {
+          activeCells[row].classList.remove('active');
+          players[row].pause();
+          players[row].currentTime = 0;
+        }
+
+        // Toggle if clicked cell was already active
+        if (activeCells[row] === cell) {
+          activeCells[row] = null;
+        } else {
+          cell.classList.add('active');
+          players[row].src = "audio/" + audioFile;
+          players[row].play();
+          activeCells[row] = cell;
+        }
+      });
+    });
+  </script>
 </body>
 </html>
