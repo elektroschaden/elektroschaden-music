@@ -122,6 +122,7 @@
         } else {
           cell.classList.add('active');
           players[row].src = "audio/" + audioFile;
+          players[row].loop = true;
           players[row].play();
           activeCells[row] = cell;
         }
