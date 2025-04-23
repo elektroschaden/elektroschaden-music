@@ -130,12 +130,13 @@
           ];
         } else if (cmd === 'manifest all') {
           const leer = ' ';
+          const leer = ' ';
           response = manifeste['manifest 0']
-            .concat([''])
+            .concat([leer])
             .concat(manifeste['manifest 1'])
-            .concat([''])
+            .concat([leer])
             .concat(manifeste['manifest 2'])
-            .concat([''])
+            .concat([leer])
             .concat(manifeste['manifest 3']);
         } else {
           response = manifeste[cmd] || ['>>> befehl unbekannt'];
