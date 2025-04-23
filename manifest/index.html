@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="de">
+<!DOCTYPE html><html lang="de">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,9 +38,7 @@
 <div id="terminal">
   >>> willkommen im elektroschaden-terminal
   >>> gib einen befehl ein, z.B. "manifest 0"
-</div>
-
-<script>
+</div><script>
   const terminal = document.getElementById('terminal');
 
   const manifeste = {
@@ -89,6 +86,7 @@
       '>>> driftpunkt',
       '>>> elektroschaden',
       '>>> zufall',
+      '>>> manifest all',
       '>>> ?'
     ]
   };
@@ -122,6 +120,19 @@
         let response;
         if (cmd === 'zufall') {
           response = ['>>> zufallsgenerator aktiviert', generateZufallswort()];
+        } else if (cmd === 'manifest') {
+          response = [
+            '>>> manifest ohne nummer = richtung ohne form.',
+            '>>> du brauchst eine zahl, um zu formen.'
+          ];
+        } else if (cmd === 'manifest all') {
+          response = manifeste['manifest 0']
+            .concat([''])
+            .concat(manifeste['manifest 1'])
+            .concat([''])
+            .concat(manifeste['manifest 2'])
+            .concat([''])
+            .concat(manifeste['manifest 3']);
         } else {
           response = manifeste[cmd] || ['>>> befehl unbekannt'];
         }
@@ -145,7 +156,5 @@
   }
 
   createInputLine();
-</script>
-</body>
+</script></body>
 </html>
-
