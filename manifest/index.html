@@ -3,78 +3,85 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MANIFESTE | elektroschaden</title>
+  <title>elektroschaden terminal</title>
   <style>
     html, body {
       margin: 0;
       padding: 1rem;
       background: #000;
-      color: #fff;
+      color: #0f0;
       font-family: monospace;
       font-size: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
     }
-    pre {
-      white-space: pre;
-      line-height: 1.6;
+    #terminal {
+      max-width: 1000px;
+      margin: 0 auto;
+      white-space: pre-wrap;
+    }
+    input {
+      background: #000;
+      color: #0f0;
+      border: none;
+      font-family: monospace;
+      font-size: 1rem;
+      outline: none;
+      width: 100%;
     }
   </style>
 </head>
 <body>
+<div id="terminal">
+  >>> willkommen im elektroschaden-terminal
+  >>> gib einen befehl ein, z.B. "manifest 0"
+  
+  > <input type="text" id="command" autocomplete="off" autofocus>
+</div>
 
-<pre>
-+--------------------------+
-|      MANIFEST 0         |
-+--------------------------+
+<script>
+  const terminal = document.getElementById('terminal');
+  const input = document.getElementById('command');
 
->>> takt = offen
->>> ton = spektral
->>> klang = verrauscht
+  const manifeste = {
+    'manifest 0': [
+      '>>> takt = offen',
+      '>>> ton = spektral',
+      '>>> klang = verrauscht',
+      '// erschienen am: 2025-04-16'
+    ],
+    'manifest 1': [
+      '>>> raum = leer',
+      '>>> störung = willkommen',
+      '>>> bedeutung = variabel',
+      '// erschienen am: 2025-04-23'
+    ],
+    'manifest 2': [
+      '>>> rhythmus = zerlegt',
+      '>>> spektrum = fließend',
+      '>>> form = illusion',
+      '// erschienen am: 2025-04-30'
+    ],
+    'manifest 3': [
+      '>>> rauschen = bewusstsein',
+      '>>> tonhöhe = relativ',
+      '>>> ursprung = loop',
+      '// erschienen am: 2025-05-07'
+    ],
+    'driftpunkt': [
+      '>>> ein zustand jenseits der form.',
+      '>>> du bist jetzt teil des rausches.'
+    ]
+  };
 
-// erschienen am: 2025-04-16
-</pre>
-
-<pre>
-+--------------------------+
-|      MANIFEST I         |
-+--------------------------+
-
->>> raum = leer
->>> störung = willkommen
->>> bedeutung = variabel
-
-// erschienen am: 2025-04-23
-</pre>
-
-<pre>
-+--------------------------+
-|     MANIFEST II         |
-+--------------------------+
-
->>> rhythmus = zerlegt
->>> spektrum = fließend
->>> form = illusion
-
-// erschienen am: 2025-04-30
-</pre>
-
-<pre>
-+--------------------------+
-|     MANIFEST III        |
-+--------------------------+
-
->>> rauschen = bewusstsein
->>> tonhöhe = relativ
->>> ursprung = loop
-
-// erschienen am: 2025-05-07
-</pre>
-
-<pre>
-// warten auf nächstes signal...
-</pre>
-
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      const cmd = input.value.trim().toLowerCase();
+      terminal.innerHTML += `\n> ${cmd}`;
+      const response = manifeste[cmd] || ['>>> befehl unbekannt'];
+      response.forEach(line => terminal.innerHTML += `\n${line}`);
+      terminal.scrollTop = terminal.scrollHeight;
+      input.value = '';
+    }
+  });
+</script>
 </body>
 </html>
