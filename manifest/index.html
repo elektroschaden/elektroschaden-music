@@ -114,11 +114,14 @@
   };
 
   function generateZufallswort() {
-    const adj = ["verrauscht", "fragmentiert", "spektral", "instabil", "leer", "modular", "nichtlinear", "zersetzt", "driftend", "offen"];
-    const subs = ["spur", "ton", "körper", "glitch", "feld", "signal", "struktur", "loop", "klang", "spektrum"];
-    const a = adj[Math.floor(Math.random() * adj.length)];
-    const s = subs[Math.floor(Math.random() * subs.length)];
+    const parts = ["rausch", "fragment", "spektral", "drift", "glitch", "ton", "klang", "spur", "loop", "modul"];
+    let a, s;
+    do {
+      a = parts[Math.floor(Math.random() * parts.length)];
+      s = parts[Math.floor(Math.random() * parts.length)];
+    } while (a === s);
     return `>>> erzeugt: ${a}${s}`;
+  }
   }
 
   function createInputLine() {
