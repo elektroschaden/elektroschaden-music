@@ -1,1 +1,115 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FORMZERFALL [Instrument 02]</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 60px);
+      grid-gap: 1.2rem;
+    }
+    .form {
+      width: 60px;
+      height: 60px;
+      background: white;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      opacity: 1;
+    }
+    .form.deform {
+      transform: rotate(30deg) scale(0.6) skew(10deg, 10deg);
+      opacity: 0.3;
+      background: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="grid">
+    <div class="form" data-id="1"></div>
+    <div class="form" data-id="2"></div>
+    <div class="form" data-id="3"></div>
+    <div class="form" data-id="4"></div>
+    <div class="form" data-id="5"></div>
+    <div class="form" data-id="6"></div>
+    <div class="form" data-id="7"></div>
+    <div class="form" data-id="8"></div>
+    <div class="form" data-id="9"></div>
+    <div class="form" data-id="10"></div>
+  </div>
+
+  <script>
+    const sineMap = new Map();
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    document.querySelectorAll('.form').forEach(el => {
+      el.addEventListener('click', () => {
+        const id = el.dataset.id;
+
+        if (!sineMap.has(id)) {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          const panner = audioCtx.createStereoPanner();
+          osc.type = 'sine';
+
+          const startFreq = 600 + Math.random() * 600;
+          osc.frequency.setValueAtTime(startFreq, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+
+          osc.connect(gain).connect(panner).connect(audioCtx.destination);
+          osc.start();
+
+          const pan = (parseInt(id) - 5.5) / 4.5;
+          panner.pan.setValueAtTime(pan, audioCtx.currentTime);
+
+          sineMap.set(id, { osc, gain, panner });
+        }
+
+        const sound = sineMap.get(id);
+        if (!sound) return;
+        const { osc, gain, panner } = sound;
+
+        if (!el.classList.contains('deform')) {
+          el.classList.add('deform');
+
+          osc.frequency.cancelScheduledValues(audioCtx.currentTime);
+          const endFreq = 100 + Math.random() * 300;
+          osc.frequency.linearRampToValueAtTime(endFreq, audioCtx.currentTime + 1.5);
+          gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+
+          const angle = Math.floor(Math.random() * 60 - 30);
+          const scale = 0.4 + Math.random() * 0.4;
+          const skewX = Math.floor(Math.random() * 20 - 10);
+          const skewY = Math.floor(Math.random() * 20 - 10);
+          el.style.transform = `rotate(${angle}deg) scale(${scale}) skew(${skewX}deg, ${skewY}deg)`;
+
+        } else {
+          el.classList.remove('deform');
+
+          osc.frequency.cancelScheduledValues(audioCtx.currentTime);
+          osc.frequency.linearRampToValueAtTime(1000 + Math.random() * 300, audioCtx.currentTime + 1);
+          gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+          gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1.2);
+
+          setTimeout(() => {
+            osc.stop();
+            sineMap.delete(id);
+          }, 1400);
+
+          el.style.transform = '';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
 
