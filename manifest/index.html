@@ -135,6 +135,7 @@
     } while (a === s);
     return `>>> erzeugt: ${a}${s}`;
   }
+  }
 
   function createInputLine() {
     const spacer = document.createElement('div');
@@ -215,19 +216,6 @@
         } else if (cmd === 'störung') {
           response = ['>>> systemfehler erkannt', '>>> normalität deaktiviert', '>>> neue struktur generiert'];
           glitch();
-        } else if (cmd === 'zufall manifest') {
-          const all = manifeste['manifest 0']
-            .concat([''])
-            .concat(manifeste['manifest 1'])
-            .concat([''])
-            .concat(manifeste['manifest 2'])
-            .concat([''])
-            .concat(manifeste['manifest 3']);
-          const lines = [];
-          for (let i = 0; i < 3; i++) {
-            lines.push(all[Math.floor(Math.random() * all.length)]);
-          }
-          response = ['>>> manifestfragment(e):'].concat(lines);
         } else {
           response = manifeste[cmd] || ['>>> befehl unbekannt'];
         }
