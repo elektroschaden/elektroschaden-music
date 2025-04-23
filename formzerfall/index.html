@@ -51,15 +51,7 @@
     const sineMap = new Map();
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-    function playWusch() {
-      const bufferSize = audioCtx.sampleRate * 0.2; // 0.2 Sekunden
-      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-      const data = buffer.getChannelData(0);
-
-      for (let i = 0; i < bufferSize; i++) {
-        // zufällige Lautstärkeschwankung für „wuschigen“ Charakter
-        data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / bufferSize, 2);
-      }
+    
 
       const source = audioCtx.createBufferSource();
       source.buffer = buffer;
@@ -87,7 +79,7 @@
           sineMap.set(id, { osc, gain, panner });
         }
         const { osc, gain, panner } = sineMap.get(id);
-      playWusch();
+      
 
       if (!el.classList.contains('deform')) {
         el.classList.add('deform');
