@@ -215,6 +215,8 @@
         } else if (cmd === 'störung') {
           response = ['>>> systemfehler erkannt', '>>> normalität deaktiviert', '>>> neue struktur generiert'];
           glitch();
+        } else if (cmd === 'code') {
+          response = ['>>> zugang zu tieferen strukturen:', '>>> versuche: freeze, störung, driftpunkt'];
         } else {
           response = manifeste[cmd] || ['>>> befehl unbekannt'];
         }
