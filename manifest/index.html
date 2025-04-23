@@ -9,7 +9,7 @@
       margin: 0;
       padding: 1rem;
       background: #000;
-      color: #0f0;
+      color: #fff;
       font-family: monospace;
       font-size: 1rem;
     }
@@ -26,7 +26,7 @@
     }
     input {
       background: #000;
-      color: #0f0;
+      color: #fff;
       border: none;
       font-family: monospace;
       font-size: 1rem;
@@ -76,6 +76,10 @@
   };
 
   function createInputLine() {
+    const spacer = document.createElement('div');
+    spacer.innerHTML = '&nbsp;';
+    terminal.appendChild(spacer);
+
     const line = document.createElement('div');
     line.className = 'input-line';
     const prompt = document.createElement('span');
@@ -90,6 +94,9 @@
         const cmd = input.value.trim().toLowerCase();
         line.innerHTML = `> ${cmd}`;
         const response = manifeste[cmd] || ['>>> befehl unbekannt'];
+        const spacer = document.createElement('div');
+        spacer.innerHTML = '&nbsp;';
+        terminal.appendChild(spacer);
         response.forEach(line => {
           const p = document.createElement('div');
           p.textContent = line;
