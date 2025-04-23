@@ -134,30 +134,15 @@
       });
     });
       function resetAll() {
-      document.querySelectorAll('.form').forEach(el => {
-        if (el.classList.contains('deform')) {
-          el.click();
-        }
+  location.reload();
+}
       });
     }
 
     let delayEnabled = false;
     let delayNode = null;
 
-    function toggleDelay() {
-      delayEnabled = !delayEnabled;
-
-      if (delayEnabled) {
-        delayNode = audioCtx.createDelay();
-        delayNode.delayTime.value = 0.4;
-        document.querySelectorAll('.form').forEach(el => {
-          const id = el.dataset.id;
-          const sound = sineMap.get(id);
-          if (sound) {
-            sound.gain.disconnect();
-            sound.gain.connect(delayNode).connect(audioCtx.destination);
-          }
-        });
+    );
       } else {
         document.querySelectorAll('.form').forEach(el => {
           const id = el.dataset.id;
