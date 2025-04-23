@@ -40,6 +40,21 @@
       60% { background-color: #111; color: #f00; }
       100% { background-color: #000; color: #fff; }
     }
+
+    @keyframes glitchFreeze {
+      0% { background-color: #000; color: #fff; }
+      10% { background-color: #111; color: #888; }
+      25% { background-color: #000; color: #f00; }
+      40% { background-color: #111; color: #0ff; }
+      55% { background-color: #000; color: #888; }
+      70% { background-color: #111; color: #f0f; }
+      100% { background-color: #000; color: #fff; }
+    }
+      20% { background-color: #111; color: #f0f; }
+      40% { background-color: #000; color: #0ff; }
+      60% { background-color: #111; color: #f00; }
+      100% { background-color: #000; color: #fff; }
+    }
   </style>
 </head>
 <body>
@@ -103,12 +118,10 @@
       '>>> manifest 3',
       '>>> driftpunkt',
       '>>> elektroschaden',
-      '>>> zufall',
       '>>> manifest all',
       '>>> musik',
       '>>> zeit',
       '>>> störung',
-      '>>> zufall manifest',
       '>>> ?'
     ]
   };
@@ -121,6 +134,7 @@
       s = parts[Math.floor(Math.random() * parts.length)];
     } while (a === s);
     return `>>> erzeugt: ${a}${s}`;
+  }
   }
 
   function createInputLine() {
@@ -146,8 +160,39 @@
           document.body.style.animation = 'glitch 0.3s ease-in-out';
           setTimeout(() => document.body.style.animation = '', 300);
         };
-        if (cmd === 'zufall') {
-          response = ['>>> zufallsgenerator aktiviert', generateZufallswort()];
+        if (cmd === 'freeze') {
+          document.body.style.animation = 'glitchFreeze 4s ease-in-out';
+
+          const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          const bufferSize = 2 * audioCtx.sampleRate;
+          const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+          const output = noiseBuffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) {
+            output[i] = Math.random() * 2 - 1;
+          }
+          const whiteNoise = audioCtx.createBufferSource();
+          whiteNoise.buffer = noiseBuffer;
+          whiteNoise.loop = true;
+          const gainNode = audioCtx.createGain();
+          gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime);
+          whiteNoise.connect(gainNode).connect(audioCtx.destination);
+          whiteNoise.start();
+
+          response = ['>>> system wird eingefroren...', '>>> bitte warte'];
+
+          setTimeout(() => {
+            document.body.style.animation = '';
+            const spacer = document.createElement('div');
+            spacer.innerHTML = '&nbsp;';
+            terminal.appendChild(spacer);
+            const p = document.createElement('div');
+            p.textContent = '>>> system wieder aktiv';
+            terminal.appendChild(p);
+            whiteNoise.stop();
+            createInputLine();
+            window.scrollTo(0, document.body.scrollHeight);
+          }, 4000);
+          return;
         } else if (cmd === 'manifest') {
           response = [
             '>>> manifest ohne nummer = richtung ohne form.',
