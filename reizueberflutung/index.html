@@ -1,1 +1,105 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>REIZÜBERFLUTUNG [Werkstatt]</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: white;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 1.2rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 80px);
+      grid-gap: 1.5rem;
+    }
+    .cell {
+      width: 80px;
+      height: 80px;
+      background-color: #22ff88;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.3s;
+    }
+    .cell.active {
+      transform: scale(1.1);
+      opacity: 0.6;
+    }
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>REIZÜBERFLUTUNG<br />[WERKSTATT]</h1>
+  <div class="grid">
+    <button class="cell" data-audio="1"></button>
+    <button class="cell" data-audio="2"></button>
+    <button class="cell" data-audio="3"></button>
+    <button class="cell" data-audio="4"></button>
+    <button class="cell" data-audio="5"></button>
+    <button class="cell" data-audio="6"></button>
+    <button class="cell" data-audio="7"></button>
+    <button class="cell" data-audio="8"></button>
+    <button class="cell" data-audio="9"></button>
+  </div>
+
+  <!-- Audio Snippets -->
+  <audio id="audio1" src="audio1.mp3"></audio>
+  <audio id="audio2" src="audio2.mp3"></audio>
+  <audio id="audio3" src="audio3.mp3"></audio>
+  <audio id="audio4" src="audio4.mp3"></audio>
+  <audio id="audio5" src="audio5.mp3"></audio>
+  <audio id="audio6" src="audio6.mp3"></audio>
+  <audio id="audio7" src="audio7.mp3"></audio>
+  <audio id="audio8" src="audio8.mp3"></audio>
+  <audio id="audio9" src="audio9.mp3"></audio>
+
+  <script>
+    const buttons = document.querySelectorAll(".cell");
+    const audios = {};
+    let activeCount = 0;
+    let maxActive = 3;
+
+    for (let i = 1; i <= 9; i++) {
+      audios[i] = document.getElementById("audio" + i);
+    }
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        const id = button.dataset.audio;
+        const audio = audios[id];
+
+        if (button.classList.contains("active")) {
+          audio.pause();
+          audio.currentTime = 0;
+          button.classList.remove("active");
+          activeCount--;
+        } else {
+          if (activeCount < maxActive) {
+            audio.play();
+            button.classList.add("active");
+            activeCount++;
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
 
