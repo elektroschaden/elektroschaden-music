@@ -88,6 +88,7 @@
       '>>> manifest 3',
       '>>> driftpunkt',
       '>>> elektroschaden',
+      '>>> zufall',
       '>>> ?'
     ]
   };
@@ -110,7 +111,12 @@
       if (e.key === 'Enter') {
         const cmd = input.value.trim().toLowerCase();
         line.innerHTML = `> ${cmd}`;
-        const response = manifeste[cmd] || ['>>> befehl unbekannt'];
+        let response;
+        if (cmd === 'zufall') {
+          response = ['>>> zufallsgenerator aktiviert', generateZufallswort()];
+        } else {
+          response = manifeste[cmd] || ['>>> befehl unbekannt'];
+        }
         const spacer = document.createElement('div');
         spacer.innerHTML = '&nbsp;';
         terminal.appendChild(spacer);
@@ -119,7 +125,15 @@
           p.textContent = line;
           terminal.appendChild(p);
         });
-        createInputLine();
+        function generateZufallswort() {
+    const adj = ["verrauscht", "fragmentiert", "spektral", "instabil", "leer", "modular", "nichtlinear", "zersetzt", "driftend", "offen"];
+    const subs = ["spur", "ton", "körper", "glitch", "feld", "signal", "struktur", "loop", "klang", "spektrum"];
+    const a = adj[Math.floor(Math.random() * adj.length)];
+    const s = subs[Math.floor(Math.random() * subs.length)];
+    return `>>> erzeugt: ${a}${s}`;
+  }
+
+  function createInputLine() {
         window.scrollTo(0, document.body.scrollHeight);
       }
     });
