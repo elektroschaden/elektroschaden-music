@@ -31,9 +31,33 @@
       opacity: 0.3;
       background: #888;
     }
+      .controls {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .controls button {
+      background: none;
+      color: white;
+      border: 1px solid white;
+      padding: 0.4rem 0.8rem;
+      font-family: monospace;
+      cursor: pointer;
+    }
+    .controls button:hover {
+      background: white;
+      color: black;
+    }
   </style>
 </head>
 <body>
+  <div class="controls">
+    <button onclick="resetAll()">reset</button>
+    <button onclick="toggleDelay()">delay</button>
+  </div>
   <div class="grid">
     <div class="form" data-id="1"></div>
     <div class="form" data-id="2"></div>
@@ -109,7 +133,43 @@
         }
       });
     });
+      function resetAll() {
+      document.querySelectorAll('.form').forEach(el => {
+        if (el.classList.contains('deform')) {
+          el.click();
+        }
+      });
+    }
+
+    let delayEnabled = false;
+    let delayNode = null;
+
+    function toggleDelay() {
+      delayEnabled = !delayEnabled;
+
+      if (delayEnabled) {
+        delayNode = audioCtx.createDelay();
+        delayNode.delayTime.value = 0.4;
+        document.querySelectorAll('.form').forEach(el => {
+          const id = el.dataset.id;
+          const sound = sineMap.get(id);
+          if (sound) {
+            sound.gain.disconnect();
+            sound.gain.connect(delayNode).connect(audioCtx.destination);
+          }
+        });
+      } else {
+        document.querySelectorAll('.form').forEach(el => {
+          const id = el.dataset.id;
+          const sound = sineMap.get(id);
+          if (sound) {
+            sound.gain.disconnect();
+            sound.gain.connect(audioCtx.destination);
+          }
+        });
+        if (delayNode) delayNode.disconnect();
+      }
+    }
   </script>
 </body>
 </html>
-
