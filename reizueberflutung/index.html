@@ -73,8 +73,8 @@
   <script>
     const buttons = document.querySelectorAll(".cell");
     const audios = {};
-    let activeCount = 0;
-    let maxActive = 3;
+    const activeQueue = [];
+    const maxActive = 3;
 
     for (let i = 1; i <= 9; i++) {
       audios[i] = document.getElementById("audio" + i);
@@ -89,13 +89,19 @@
           audio.pause();
           audio.currentTime = 0;
           button.classList.remove("active");
-          activeCount--;
+          const index = activeQueue.indexOf(button);
+          if (index !== -1) activeQueue.splice(index, 1);
         } else {
-          if (activeCount < maxActive) {
-            audio.play();
-            button.classList.add("active");
-            activeCount++;
+          if (activeQueue.length >= maxActive) {
+            const oldButton = activeQueue.shift();
+            const oldId = oldButton.dataset.audio;
+            audios[oldId].pause();
+            audios[oldId].currentTime = 0;
+            oldButton.classList.remove("active");
           }
+          audio.play();
+          button.classList.add("active");
+          activeQueue.push(button);
         }
       });
     });
