@@ -33,6 +33,13 @@
       outline: none;
       flex: 1;
     }
+  @keyframes glitch {
+      0% { background-color: #000; color: #fff; }
+      20% { background-color: #111; color: #f0f; }
+      40% { background-color: #000; color: #0ff; }
+      60% { background-color: #111; color: #f00; }
+      100% { background-color: #000; color: #fff; }
+    }
   </style>
 </head>
 <body>
@@ -99,6 +106,9 @@
       '>>> zufall',
       '>>> manifest all',
       '>>> musik',
+      '>>> zeit',
+      '>>> störung',
+      '>>> zufall manifest',
       '>>> ?'
     ]
   };
@@ -130,6 +140,10 @@
         const cmd = input.value.trim().toLowerCase();
         line.innerHTML = `> ${cmd}`;
         let response;
+        const glitch = () => {
+          document.body.style.animation = 'glitch 0.3s ease-in-out';
+          setTimeout(() => document.body.style.animation = '', 300);
+        };
         if (cmd === 'zufall') {
           response = ['>>> zufallsgenerator aktiviert', generateZufallswort()];
         } else if (cmd === 'manifest') {
@@ -146,6 +160,28 @@
             .concat(manifeste['manifest 2'])
             .concat([leer])
             .concat(manifeste['manifest 3']);
+        } else if (cmd === 'zeit') {
+          const phase = ['aufbau', 'drift', 'zerfall', 'rekursion'];
+          const p = phase[Math.floor(Math.random() * phase.length)];
+          const now = new Date();
+          const zeit = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+          response = [`>>> jetztzeit: ${zeit} // phase: ${p}`, '>>> zeit = relativ'];
+        } else if (cmd === 'störung') {
+          response = ['>>> systemfehler erkannt', '>>> normalität deaktiviert', '>>> neue struktur generiert'];
+          glitch();
+        } else if (cmd === 'zufall manifest') {
+          const all = manifeste['manifest 0']
+            .concat([''])
+            .concat(manifeste['manifest 1'])
+            .concat([''])
+            .concat(manifeste['manifest 2'])
+            .concat([''])
+            .concat(manifeste['manifest 3']);
+          const lines = [];
+          for (let i = 0; i < 3; i++) {
+            lines.push(all[Math.floor(Math.random() * all.length)]);
+          }
+          response = ['>>> manifestfragment(e):'].concat(lines);
         } else {
           response = manifeste[cmd] || ['>>> befehl unbekannt'];
         }
