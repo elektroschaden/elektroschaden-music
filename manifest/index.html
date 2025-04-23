@@ -18,6 +18,12 @@
       margin: 0 auto;
       white-space: pre-wrap;
     }
+    .input-line {
+      display: flex;
+    }
+    .input-line span {
+      margin-right: 0.5rem;
+    }
     input {
       background: #000;
       color: #0f0;
@@ -25,7 +31,7 @@
       font-family: monospace;
       font-size: 1rem;
       outline: none;
-      width: 100%;
+      flex: 1;
     }
   </style>
 </head>
@@ -33,13 +39,10 @@
 <div id="terminal">
   >>> willkommen im elektroschaden-terminal
   >>> gib einen befehl ein, z.B. "manifest 0"
-  
-  > <input type="text" id="command" autocomplete="off" autofocus>
 </div>
 
 <script>
   const terminal = document.getElementById('terminal');
-  const input = document.getElementById('command');
 
   const manifeste = {
     'manifest 0': [
@@ -72,16 +75,38 @@
     ]
   };
 
-  input.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-      const cmd = input.value.trim().toLowerCase();
-      terminal.innerHTML += `\n> ${cmd}`;
-      const response = manifeste[cmd] || ['>>> befehl unbekannt'];
-      response.forEach(line => terminal.innerHTML += `\n${line}`);
-      terminal.scrollTop = terminal.scrollHeight;
-      input.value = '';
-    }
-  });
+  function createInputLine() {
+    const line = document.createElement('div');
+    line.className = 'input-line';
+    const prompt = document.createElement('span');
+    prompt.textContent = '> ';
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.autocomplete = 'off';
+    input.autofocus = true;
+
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        const cmd = input.value.trim().toLowerCase();
+        line.innerHTML = `> ${cmd}`;
+        const response = manifeste[cmd] || ['>>> befehl unbekannt'];
+        response.forEach(line => {
+          const p = document.createElement('div');
+          p.textContent = line;
+          terminal.appendChild(p);
+        });
+        createInputLine();
+        window.scrollTo(0, document.body.scrollHeight);
+      }
+    });
+
+    line.appendChild(prompt);
+    line.appendChild(input);
+    terminal.appendChild(line);
+    input.focus();
+  }
+
+  createInputLine();
 </script>
 </body>
 </html>
