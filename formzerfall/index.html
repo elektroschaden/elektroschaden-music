@@ -48,6 +48,7 @@
   </div>
 
   <script>
+    const sineMap = new Map();
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     function playWusch() {
@@ -69,10 +70,32 @@
     }
     document.querySelectorAll('.form').forEach(el => {
       el.addEventListener('click', () => {
+        const id = el.dataset.id;
+        if (!sineMap.has(id)) {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          const panner = audioCtx.createStereoPanner();
+          osc.type = 'sine';
+          const startFreq = 600 + Math.random() * 600;
+          osc.frequency.setValueAtTime(startFreq, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+          osc.connect(gain).connect(panner).connect(audioCtx.destination);
+          osc.start();
+          // Position für Panning berechnen (1 bis 10 → -1 bis +1)
+          const pan = (parseInt(id) - 5.5) / 4.5;
+          panner.pan.setValueAtTime(pan, audioCtx.currentTime);
+          sineMap.set(id, { osc, gain, panner });
+        }
+        const { osc, gain, panner } = sineMap.get(id);
       playWusch();
 
       if (!el.classList.contains('deform')) {
         el.classList.add('deform');
+        // Sinus gleitet nach unten, bleibt leise stehen
+        osc.frequency.cancelScheduledValues(audioCtx.currentTime);
+        const endFreq = 100 + Math.random() * 300;
+        osc.frequency.linearRampToValueAtTime(endFreq, audioCtx.currentTime + 1.5);
+        gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
         const angle = Math.floor(Math.random() * 60 - 30); // -30 bis +30 Grad
         const scale = 0.4 + Math.random() * 0.4; // 0.4 bis 0.8
         const skewX = Math.floor(Math.random() * 20 - 10);
@@ -80,6 +103,15 @@
         el.style.transform = `rotate(${angle}deg) scale(${scale}) skew(${skewX}deg, ${skewY}deg)`;
       } else {
         el.classList.remove('deform');
+        // Ton gleitet nach oben und endet
+        osc.frequency.cancelScheduledValues(audioCtx.currentTime);
+        osc.frequency.linearRampToValueAtTime(1000 + Math.random() * 300, audioCtx.currentTime + 1);
+        gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1.2);
+        setTimeout(() => {
+          osc.stop();
+          sineMap.delete(id);
+        }, 1400);
         el.style.transform = '';
       }
     });
