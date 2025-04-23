@@ -1,1 +1,94 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TAKTGEBER [Instrument 03]</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: monospace;
+    }
+    .grid {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .pulse {
+      width: 60px;
+      height: 60px;
+      background-color: white;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .pulse.active {
+      opacity: 0.4;
+    }
+  </style>
+</head>
+<body>
+  <h1>>> TAKTGEBER [03]</h1>
+  <div class="grid">
+    <div class="pulse" data-id="1"></div>
+    <div class="pulse" data-id="2"></div>
+    <div class="pulse" data-id="3"></div>
+    <div class="pulse" data-id="4"></div>
+  </div>
+
+  <script>
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const pulses = document.querySelectorAll('.pulse');
+    const pulseMap = new Map();
+
+    const baseFreqs = [200, 300, 400, 500];
+    const bpms = [120, 137, 90, 111];
+
+    pulses.forEach((el, index) => {
+      el.addEventListener('click', () => {
+        const id = el.dataset.id;
+
+        if (pulseMap.has(id)) {
+          // Stop
+          const { interval, osc } = pulseMap.get(id);
+          clearInterval(interval);
+          osc.stop();
+          pulseMap.delete(id);
+          el.classList.remove('active');
+        } else {
+          // Start
+          const freq = baseFreqs[index];
+          const pan = (index - 1.5) / 1.5;
+          const gain = audioCtx.createGain();
+          const panner = audioCtx.createStereoPanner();
+          const osc = audioCtx.createOscillator();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+          gain.gain.value = 0;
+          osc.connect(gain).connect(panner).connect(audioCtx.destination);
+          panner.pan.setValueAtTime(pan, audioCtx.currentTime);
+          osc.start();
+
+          const interval = setInterval(() => {
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.1);
+            el.style.opacity = 1;
+            setTimeout(() => el.style.opacity = 0.4, 100);
+          }, (60 / bpms[index]) * 1000);
+
+          pulseMap.set(id, { interval, osc });
+          el.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
 
