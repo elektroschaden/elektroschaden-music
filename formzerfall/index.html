@@ -113,6 +113,29 @@
           const scale = 0.4 + Math.random() * 0.4;
           const skewX = Math.floor(Math.random() * 20 - 10);
           const skewY = Math.floor(Math.random() * 20 - 10);
-          el.style.transform = `rotate(${angle}deg) scale(${scale}) skew(${skewX}deg, ${skewY}deg)`;  </script>
+          el.style.transform = `rotate(${angle}deg) scale(${scale}) skew(${skewX}deg, ${skewY}deg)`;
+
+        } else {
+          el.classList.remove('deform');
+
+          osc.frequency.cancelScheduledValues(audioCtx.currentTime);
+          osc.frequency.linearRampToValueAtTime(1000 + Math.random() * 300, audioCtx.currentTime + 1);
+          gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+          gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1.2);
+
+          setTimeout(() => {
+            osc.stop();
+            sineMap.delete(id);
+          }, 1400);
+
+          el.style.transform = '';
+        }
+      });
+    });
+
+    function resetAll() {
+      location.reload();
+    }
+  </script>
 </body>
 </html>
