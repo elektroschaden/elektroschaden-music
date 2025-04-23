@@ -69,20 +69,20 @@
     }
     document.querySelectorAll('.form').forEach(el => {
       el.addEventListener('click', () => {
-        playWusch();
-        }
-        if (!el.classList.contains('deform')) {
-          el.classList.add('deform');
-          const angle = Math.floor(Math.random() * 60 - 30); // -30 bis +30 Grad
-          const scale = 0.4 + Math.random() * 0.4; // 0.4 bis 0.8
-          const skewX = Math.floor(Math.random() * 20 - 10);
-          const skewY = Math.floor(Math.random() * 20 - 10);
-          el.style.transform = `rotate(${angle}deg) scale(${scale}) skew(${skewX}deg, ${skewY}deg)`;
-        } else {
-          el.classList.remove('deform');
-          el.style.transform = '';
-        }
-      });
+      playWusch();
+
+      if (!el.classList.contains('deform')) {
+        el.classList.add('deform');
+        const angle = Math.floor(Math.random() * 60 - 30); // -30 bis +30 Grad
+        const scale = 0.4 + Math.random() * 0.4; // 0.4 bis 0.8
+        const skewX = Math.floor(Math.random() * 20 - 10);
+        const skewY = Math.floor(Math.random() * 20 - 10);
+        el.style.transform = `rotate(${angle}deg) scale(${scale}) skew(${skewX}deg, ${skewY}deg)`;
+      } else {
+        el.classList.remove('deform');
+        el.style.transform = '';
+      }
+    });
     });
   </script>
   
