@@ -93,6 +93,14 @@
     ]
   };
 
+  function generateZufallswort() {
+    const adj = ["verrauscht", "fragmentiert", "spektral", "instabil", "leer", "modular", "nichtlinear", "zersetzt", "driftend", "offen"];
+    const subs = ["spur", "ton", "körper", "glitch", "feld", "signal", "struktur", "loop", "klang", "spektrum"];
+    const a = adj[Math.floor(Math.random() * adj.length)];
+    const s = subs[Math.floor(Math.random() * subs.length)];
+    return `>>> erzeugt: ${a}${s}`;
+  }
+
   function createInputLine() {
     const spacer = document.createElement('div');
     spacer.innerHTML = '&nbsp;';
@@ -125,15 +133,7 @@
           p.textContent = line;
           terminal.appendChild(p);
         });
-        function generateZufallswort() {
-    const adj = ["verrauscht", "fragmentiert", "spektral", "instabil", "leer", "modular", "nichtlinear", "zersetzt", "driftend", "offen"];
-    const subs = ["spur", "ton", "körper", "glitch", "feld", "signal", "struktur", "loop", "klang", "spektrum"];
-    const a = adj[Math.floor(Math.random() * adj.length)];
-    const s = subs[Math.floor(Math.random() * subs.length)];
-    return `>>> erzeugt: ${a}${s}`;
-  }
-
-  function createInputLine() {
+        createInputLine();
         window.scrollTo(0, document.body.scrollHeight);
       }
     });
