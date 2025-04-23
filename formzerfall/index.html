@@ -1,1 +1,59 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FORMZERFALL [Werkstatt 02]</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 60px);
+      grid-gap: 1.2rem;
+    }
+    .form {
+      width: 60px;
+      height: 60px;
+      background: white;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      opacity: 1;
+    }
+    .form.deform {
+      transform: rotate(30deg) scale(0.6) skew(10deg, 10deg);
+      opacity: 0.3;
+      background: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="grid">
+    <div class="form" data-id="1"></div>
+    <div class="form" data-id="2"></div>
+    <div class="form" data-id="3"></div>
+    <div class="form" data-id="4"></div>
+    <div class="form" data-id="5"></div>
+    <div class="form" data-id="6"></div>
+    <div class="form" data-id="7"></div>
+    <div class="form" data-id="8"></div>
+    <div class="form" data-id="9"></div>
+    <div class="form" data-id="10"></div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.form').forEach(el => {
+      el.addEventListener('click', () => {
+        el.classList.toggle('deform');
+      });
+    });
+  </script>
+</body>
+</html>
 
