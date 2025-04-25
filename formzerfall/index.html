@@ -31,11 +31,10 @@
       opacity: 0.3;
       background: #888;
     }
-      
   </style>
 </head>
 <body>
-  
+
   <div class="grid">
     <div class="form" data-id="1"></div>
     <div class="form" data-id="2"></div>
@@ -53,6 +52,11 @@
     const sineMap = new Map();
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
+    // Master Gain Node
+    const masterGain = audioCtx.createGain();
+    masterGain.gain.value = 0.4;
+    masterGain.connect(audioCtx.destination);
+
     document.querySelectorAll('.form').forEach(el => {
       el.addEventListener('click', () => {
         const id = el.dataset.id;
@@ -65,9 +69,9 @@
 
           const startFreq = 600 + Math.random() * 600;
           osc.frequency.setValueAtTime(startFreq, audioCtx.currentTime);
-          gain.gain.setValueAtTime(0.15 + Math.random() * 0.1, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.3 + Math.random() * 0.2, audioCtx.currentTime);
 
-          osc.connect(gain).connect(panner).connect(audioCtx.destination);
+          osc.connect(gain).connect(panner).connect(masterGain);
           osc.start();
 
           const pan = (parseInt(id) - 5.5) / 4.5;
@@ -86,7 +90,7 @@
           osc.frequency.cancelScheduledValues(audioCtx.currentTime);
           const endFreq = 100 + Math.random() * 300;
           osc.frequency.linearRampToValueAtTime(endFreq, audioCtx.currentTime + 1.5);
-          gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
 
           const angle = Math.floor(Math.random() * 60 - 30);
           const scale = 0.4 + Math.random() * 0.4;
@@ -99,7 +103,7 @@
 
           osc.frequency.cancelScheduledValues(audioCtx.currentTime);
           osc.frequency.linearRampToValueAtTime(1000 + Math.random() * 300, audioCtx.currentTime + 1);
-          gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
           gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1.2);
 
           setTimeout(() => {
@@ -111,8 +115,6 @@
         }
       });
     });
-
-    
   </script>
 </body>
 </html>
