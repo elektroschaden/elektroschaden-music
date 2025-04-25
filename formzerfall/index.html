@@ -9,18 +9,21 @@
       margin: 0;
       background: black;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(5, 60px);
-      grid-gap: 1.2rem;
+      grid-template-columns: repeat(5, minmax(60px, 12vw));
+      grid-gap: 2vw;
     }
     .form {
-      width: 60px;
-      height: 60px;
+      width: 12vw;
+      height: 12vw;
+      max-width: 100px;
+      max-height: 100px;
       background: white;
       border-radius: 50%;
       transition: all 0.3s ease;
@@ -30,6 +33,16 @@
       transform: rotate(30deg) scale(0.6) skew(10deg, 10deg);
       opacity: 0.3;
       background: #888;
+    }
+    button {
+      margin: 1rem;
+      padding: 0.4rem 1rem;
+      font-family: monospace;
+      font-size: 1rem;
+      background: white;
+      color: black;
+      border: none;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -47,6 +60,7 @@
     <div class="form" data-id="9"></div>
     <div class="form" data-id="10"></div>
   </div>
+  <button id="stopAll">reset</button>
 
   <script>
     const sineMap = new Map();
@@ -54,7 +68,7 @@
 
     // Master Gain Node
     const masterGain = audioCtx.createGain();
-    masterGain.gain.value = 0.8;
+    masterGain.gain.value = 0.9;
     masterGain.connect(audioCtx.destination);
 
     document.querySelectorAll('.form').forEach(el => {
@@ -113,6 +127,17 @@
 
           el.style.transform = '';
         }
+      });
+    });
+
+    document.getElementById('stopAll').addEventListener('click', () => {
+      sineMap.forEach(({ osc }) => {
+        osc.stop();
+      });
+      sineMap.clear();
+      document.querySelectorAll('.form').forEach(el => {
+        el.classList.remove('deform');
+        el.style.transform = '';
       });
     });
   </script>
