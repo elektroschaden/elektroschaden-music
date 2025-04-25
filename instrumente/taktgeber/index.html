@@ -127,9 +127,13 @@
           osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
 
           gain.gain.value = 0;
+          const loudnessComp = Math.min(1.5, 1000 / freq); // tiefere Töne = lauter
+          gain.gain.value = 0;
           osc.connect(gain).connect(panner).connect(audioCtx.destination);
           panner.pan.setValueAtTime(pan, audioCtx.currentTime);
           osc.start();
+          gain.gain.loudnessComp = loudnessComp;
+
 
           const interval = setInterval(() => {
             gain.gain.setValueAtTime(muted ? 0 : 0.1, audioCtx.currentTime);
@@ -188,7 +192,7 @@
           clearInterval(interval);
           osc.frequency.setValueAtTime(baseFreqs[index], audioCtx.currentTime);
           const newInterval = setInterval(() => {
-            gain.gain.setValueAtTime(muted ? 0 : 0.1, audioCtx.currentTime);
+            gain.gain.setValueAtTime(muted ? 0 : 0.25 * (gain.gain.loudnessComp || 1), audioCtx.currentTime);
             gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.1);
             el.classList.add('pulse-grow');
             setTimeout(() => el.classList.remove('pulse-grow'), 100);
