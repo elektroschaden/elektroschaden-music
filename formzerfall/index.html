@@ -65,7 +65,7 @@
 
           const startFreq = 600 + Math.random() * 600;
           osc.frequency.setValueAtTime(startFreq, audioCtx.currentTime);
-          gain.gain.setValueAtTime(0.06 + Math.random() * 0.04, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.15 + Math.random() * 0.1, audioCtx.currentTime);
 
           osc.connect(gain).connect(panner).connect(audioCtx.destination);
           osc.start();
@@ -86,7 +86,7 @@
           osc.frequency.cancelScheduledValues(audioCtx.currentTime);
           const endFreq = 100 + Math.random() * 300;
           osc.frequency.linearRampToValueAtTime(endFreq, audioCtx.currentTime + 1.5);
-          gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
 
           const angle = Math.floor(Math.random() * 60 - 30);
           const scale = 0.4 + Math.random() * 0.4;
