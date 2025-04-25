@@ -35,7 +35,7 @@
       background: #888;
     }
     button {
-      margin: 1rem;
+      margin: 4rem 1rem 1rem 1rem;
       padding: 0.4rem 1rem;
       font-family: monospace;
       font-size: 1rem;
@@ -68,7 +68,7 @@
 
     // Master Gain Node
     const masterGain = audioCtx.createGain();
-    masterGain.gain.value = 0.9;
+    masterGain.gain.value = 0.7;
     masterGain.connect(audioCtx.destination);
 
     document.querySelectorAll('.form').forEach(el => {
@@ -83,12 +83,14 @@
 
           const startFreq = 600 + Math.random() * 600;
           osc.frequency.setValueAtTime(startFreq, audioCtx.currentTime);
-          gain.gain.setValueAtTime(0.3 + Math.random() * 0.2, audioCtx.currentTime);
+          const loudnessComp = Math.min(1, 1000 / startFreq); // tiefere Frequenzen = lauter
+          gain.gain.setValueAtTime((0.2 + Math.random() * 0.5) * loudnessComp, audioCtx.currentTime);
 
           osc.connect(gain).connect(panner).connect(masterGain);
           osc.start();
 
-          const pan = (parseInt(id) - 5.5) / 4.5;
+          const panRaw = (parseInt(id) - 5.5) / 4.5;
+          const pan = Math.max(-1, Math.min(1, panRaw * 1.2));
           panner.pan.setValueAtTime(pan, audioCtx.currentTime);
 
           sineMap.set(id, { osc, gain, panner });
@@ -131,10 +133,14 @@
     });
 
     document.getElementById('stopAll').addEventListener('click', () => {
-      sineMap.forEach(({ osc }) => {
-        osc.stop();
+      sineMap.forEach(({ osc, gain }, id) => {
+        gain.gain.setValueAtTime(gain.gain.value, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.5);
+        setTimeout(() => {
+          osc.stop();
+          sineMap.delete(id);
+        }, 600);
       });
-      sineMap.clear();
       document.querySelectorAll('.form').forEach(el => {
         el.classList.remove('deform');
         el.style.transform = '';
